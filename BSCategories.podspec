@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
 
   s.name         = "BSCategories"
   s.version      = "0.0.1"
-  s.summary      = ""
+  s.summary      = "Some useful Objective-C categories!"
 
   # This description is used to generate tags and improve search results.
   #   * Think: What does it do? Why did you write it? What is the focus?
@@ -25,6 +25,7 @@ Pod::Spec.new do |s|
   #   * Write the description between the DESC delimiters below.
   #   * Finally, don't worry about the indent, CocoaPods strips it!
   s.description  = <<-DESC
+                   Some useful Objective-C categories!!
                    DESC
 
   s.homepage     = "https://github.com/blurryssky/BSCategories"
@@ -64,7 +65,7 @@ Pod::Spec.new do |s|
   #
 
   # s.platform     = :ios
-  # s.platform     = :ios, "5.0"
+  s.platform     = :ios, "7.0"
 
   #  When using multiple platforms
   # s.ios.deployment_target = "5.0"
@@ -90,10 +91,10 @@ Pod::Spec.new do |s|
   #  Not including the public_header_files will make all headers public.
   #
 
-  s.source_files  = "BSCategories", "BSCategoriesSample/BSCategories/*.{h,m}"
-  s.exclude_files = "Classes/Exclude"
+  s.source_files  = "BSCategories", "BSCategoriesSample/BSCategories/*"
+  # s.exclude_files = "Classes/Exclude"
 
-  # s.public_header_files = "Classes/**/*.h"
+  s.public_header_files = "BSCategoriesSample/BSCategories/BSCategories.h"
 
 
   # ――― Resources ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
