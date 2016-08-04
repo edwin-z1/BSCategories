@@ -33,7 +33,7 @@
 }
 
 + (instancetype)bs_colorWithHexString:(NSString *)hexStr {
-    CGFloat r, g, b, a;
+    CGFloat r, g, b, a = 0;
     NSAssert(hexStrToRGBA(hexStr, &r, &g, &b, &a), @"wrong hex format!");
     return [UIColor colorWithRed:r green:g blue:b alpha:a];
 }

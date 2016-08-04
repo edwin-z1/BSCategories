@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "BSCategories"
-  s.version      = "0.0.1"
+  s.version      = "0.0.2"
   s.summary      = "Some useful Objective-C categories!"
 
   # This description is used to generate tags and improve search results.
@@ -80,7 +80,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/blurryssky/BSCategories.git", :tag => "0.0.1" }
+  s.source       = { :git => "https://github.com/blurryssky/BSCategories.git", :tag => "0.0.2" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -94,7 +94,7 @@ Pod::Spec.new do |s|
   s.source_files  = "BSCategories", "BSCategoriesSample/BSCategories/*"
   # s.exclude_files = "Classes/Exclude"
 
-  s.public_header_files = "BSCategoriesSample/BSCategories/BSCategories.h"
+  # s.public_header_files = "BSCategoriesSample/BSCategories/BSCategories.h"
 
 
   # ――― Resources ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
