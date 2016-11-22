@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSUInteger, BSViewEdge) {
+    BSViewEdgeTop,
+    BSViewEdgeLeft,
+    BSViewEdgeRight,
+    BSViewEdgeBottom
+};
+
 @interface UIView (BSCategory)
 
 NS_ASSUME_NONNULL_BEGIN
@@ -17,6 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)bs_instantiateFromNibFile;
 
 #pragma mark - frame
+
+/// all are caculator properties
 
 @property (assign, nonatomic) CGPoint bs_origin;
 
@@ -53,7 +62,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - shadow
 
-- (void)bs_setLayerShadowColor:(UIColor*)color offset:(CGSize)offset radius:(CGFloat)radius opacity:(CGFloat)opacity;
+- (void)bs_setLayerShadowColor:(UIColor *)color offset:(CGSize)offset radius:(CGFloat)radius opacity:(CGFloat)opacity;
+- (void)bs_addDottedLineOnEdge:(BSViewEdge)edge;
 
 NS_ASSUME_NONNULL_END
 

@@ -8,7 +8,6 @@
 
 #import "NSString+BSCategory.h"
 #import "NSData+BSCategory.h"
-#import "NSError+BSCategory.h"
 
 #import <CommonCrypto/CommonDigest.h>
 
@@ -61,7 +60,11 @@
 - (BOOL)bs_isMatchesPattern:(NSString *)pattern options:(NSRegularExpressionOptions)options {
     NSError *error = nil;
     NSRegularExpression *regularExpression = [NSRegularExpression regularExpressionWithPattern:pattern options:options error:&error];
-    [error bs_printErrorDescriptionWithSelector:_cmd];
+    if (!error) {
+        NSException *exception = [NSException exceptionWithName:[NSString stringWithFormat:@"Error happen in '%@'", NSStringFromSelector(_cmd)] reason:error.localizedDescription userInfo: nil];
+        @throw exception;
+        return NO;
+    }
     return ([regularExpression numberOfMatchesInString:self options:0 range:NSMakeRange(0, self.length)] > 0);
 }
 
@@ -104,7 +107,10 @@
 - (void)bs_enumerateRegexMatchesWithPattern:(NSString *)pattern options:(NSRegularExpressionOptions)options usingBlock:(void (^)(NSRange range, NSMatchingFlags flags, BOOL *stop))block {
     NSError *error = nil;
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:options error:&error];
-    [error bs_printErrorDescriptionWithSelector:_cmd];
+    if (!error) {
+        NSException *exception = [NSException exceptionWithName:[NSString stringWithFormat:@"Error happen in '%@'", NSStringFromSelector(_cmd)] reason:error.localizedDescription userInfo: nil];
+        @throw exception;
+    }
     [regex enumerateMatchesInString:self options:kNilOptions range:NSMakeRange(0, self.length) usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
         block(result.range, flags, stop);
     }];
@@ -113,7 +119,9 @@
 - (nullable instancetype)bs_stringByReplacingRegexMatchesWithPattern:(NSString *)pattern options:(NSRegularExpressionOptions)options withTemplate:(NSString *)templ {
     NSError *error = nil;
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:options error:&error];
-    if ([error bs_printErrorDescriptionWithSelector:_cmd]) {
+    if (!error) {
+        NSException *exception = [NSException exceptionWithName:[NSString stringWithFormat:@"Error happen in '%@'", NSStringFromSelector(_cmd)] reason:error.localizedDescription userInfo: nil];
+        @throw exception;
         return nil;
     }
     return [regex stringByReplacingMatchesInString:self options:kNilOptions range:NSMakeRange(0, [self length]) withTemplate:templ];
@@ -133,9 +141,11 @@
 
 - (nullable id)bs_JSONObject {
     NSData *data = [self dataUsingEncoding:NSUTF8StringEncoding];
-    NSError *error;
+    NSError *error = nil;
     id object = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&error];
-    if ([error bs_printErrorDescriptionWithSelector:_cmd]) {
+    if (!error) {
+        NSException *exception = [NSException exceptionWithName:[NSString stringWithFormat:@"Error happen in '%@'", NSStringFromSelector(_cmd)] reason:error.localizedDescription userInfo: nil];
+        @throw exception;
         return nil;
     }
     return object;

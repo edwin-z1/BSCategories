@@ -11,6 +11,10 @@
 
 #pragma mark - share instance
 
+NSBundle *BSBundle() {
+    return [NSBundle mainBundle];
+}
+
 NSUserDefaults *BSUserDefaults() {
     return [NSUserDefaults standardUserDefaults];
 }

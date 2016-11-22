@@ -19,7 +19,6 @@
 		846BA18B1D52E47000ED789D /* NSData+BSCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 846BA17A1D52E47000ED789D /* NSData+BSCategory.m */; };
 		846BA18C1D52E47000ED789D /* NSDate+BSCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 846BA17C1D52E47000ED789D /* NSDate+BSCategory.m */; };
 		846BA18D1D52E47000ED789D /* NSDictionary+BSCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 846BA17E1D52E47000ED789D /* NSDictionary+BSCategory.m */; };
-		846BA18E1D52E47000ED789D /* NSError+BSCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 846BA1801D52E47000ED789D /* NSError+BSCategory.m */; };
 		846BA18F1D52E47000ED789D /* NSFileManager+BSCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 846BA1821D52E47000ED789D /* NSFileManager+BSCategory.m */; };
 		846BA1901D52E47000ED789D /* NSNumber+BSCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 846BA1841D52E47000ED789D /* NSNumber+BSCategory.m */; };
 		846BA1911D52E47000ED789D /* NSObject+BSCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 846BA1861D52E47000ED789D /* NSObject+BSCategory.m */; };
@@ -36,6 +35,7 @@
 		846BA1B71D52E4EC00ED789D /* UITextField+BSCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 846BA1AB1D52E4EC00ED789D /* UITextField+BSCategory.m */; };
 		846BA1B81D52E4EC00ED789D /* UIView+BSCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 846BA1AD1D52E4EC00ED789D /* UIView+BSCategory.m */; };
 		846BA1B91D52E4EC00ED789D /* UIViewController+BSCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 846BA1AF1D52E4EC00ED789D /* UIViewController+BSCategory.m */; };
+		847D47B31D66F5F0007B669B /* SomeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 847D47B21D66F5F0007B669B /* SomeView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,8 +62,6 @@
 		846BA17C1D52E47000ED789D /* NSDate+BSCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+BSCategory.m"; sourceTree = "<group>"; };
 		846BA17D1D52E47000ED789D /* NSDictionary+BSCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+BSCategory.h"; sourceTree = "<group>"; };
 		846BA17E1D52E47000ED789D /* NSDictionary+BSCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+BSCategory.m"; sourceTree = "<group>"; };
-		846BA17F1D52E47000ED789D /* NSError+BSCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+BSCategory.h"; sourceTree = "<group>"; };
-		846BA1801D52E47000ED789D /* NSError+BSCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+BSCategory.m"; sourceTree = "<group>"; };
 		846BA1811D52E47000ED789D /* NSFileManager+BSCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSFileManager+BSCategory.h"; sourceTree = "<group>"; };
 		846BA1821D52E47000ED789D /* NSFileManager+BSCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager+BSCategory.m"; sourceTree = "<group>"; };
 		846BA1831D52E47000ED789D /* NSNumber+BSCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+BSCategory.h"; sourceTree = "<group>"; };
@@ -96,6 +94,8 @@
 		846BA1AD1D52E4EC00ED789D /* UIView+BSCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+BSCategory.m"; sourceTree = "<group>"; };
 		846BA1AE1D52E4EC00ED789D /* UIViewController+BSCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+BSCategory.h"; sourceTree = "<group>"; };
 		846BA1AF1D52E4EC00ED789D /* UIViewController+BSCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+BSCategory.m"; sourceTree = "<group>"; };
+		847D47B11D66F5F0007B669B /* SomeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SomeView.h; sourceTree = "<group>"; };
+		847D47B21D66F5F0007B669B /* SomeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SomeView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +132,8 @@
 				846BA1161D52DBE900ED789D /* AppDelegate.m */,
 				846BA1181D52DBE900ED789D /* ViewController.h */,
 				846BA1191D52DBE900ED789D /* ViewController.m */,
+				847D47B11D66F5F0007B669B /* SomeView.h */,
+				847D47B21D66F5F0007B669B /* SomeView.m */,
 				846BA1291D52DC0300ED789D /* BSCategories */,
 				846BA11B1D52DBE900ED789D /* Main.storyboard */,
 				846BA11E1D52DBE900ED789D /* Assets.xcassets */,
@@ -177,8 +179,6 @@
 				846BA17C1D52E47000ED789D /* NSDate+BSCategory.m */,
 				846BA17D1D52E47000ED789D /* NSDictionary+BSCategory.h */,
 				846BA17E1D52E47000ED789D /* NSDictionary+BSCategory.m */,
-				846BA17F1D52E47000ED789D /* NSError+BSCategory.h */,
-				846BA1801D52E47000ED789D /* NSError+BSCategory.m */,
 				846BA1811D52E47000ED789D /* NSFileManager+BSCategory.h */,
 				846BA1821D52E47000ED789D /* NSFileManager+BSCategory.m */,
 				846BA1831D52E47000ED789D /* NSNumber+BSCategory.h */,
@@ -308,9 +308,9 @@
 			files = (
 				846BA1B81D52E4EC00ED789D /* UIView+BSCategory.m in Sources */,
 				846BA1B11D52E4EC00ED789D /* UIColor+BSCategory.m in Sources */,
-				846BA18E1D52E47000ED789D /* NSError+BSCategory.m in Sources */,
 				846BA11A1D52DBE900ED789D /* ViewController.m in Sources */,
 				846BA1911D52E47000ED789D /* NSObject+BSCategory.m in Sources */,
+				847D47B31D66F5F0007B669B /* SomeView.m in Sources */,
 				846BA1B21D52E4EC00ED789D /* UIDevice+BSCategory.m in Sources */,
 				846BA1B51D52E4EC00ED789D /* UIResponder+BSCategory.m in Sources */,
 				846BA18A1D52E47000ED789D /* NSBundle+BSCategory.m in Sources */,

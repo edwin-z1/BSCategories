@@ -65,8 +65,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// If the keypath has been observed ,replace it with new block;
 - (void)bs_setObserverBlockForKeyPath:(NSString *)keyPath block:(void (^)(id oldValue, id newValue))block;
 
-/// Remove all KVO blocks
-- (void)bs_removeAllObserverBlocks;
+/// Remove all KVOs
+- (void)bs_removeAllObservers;
 
 NS_ASSUME_NONNULL_END
 

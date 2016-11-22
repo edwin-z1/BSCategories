@@ -7,6 +7,7 @@
 //
 
 #import "UIApplication+BSCategory.h"
+#import "BSUtilities.h"
 
 @implementation UIApplication (BSCategory)
 
@@ -28,21 +29,18 @@
 
 #pragma mark - notifications
 
-- (void)bs_registerForAPNSRemoteNotifications {
-#if !TARGET_IPHONE_SIMULATOR
-    #if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPONE_8_0
+- (void)bs_registerForRemoteNotifications {
     
-    UIUserNotificationType types = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
-    UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
-    [self registerUserNotificationSettings:settings];
-    [self registerForRemoteNotifications];
-    
-    #else
-    UIRemoteNotificationType notificationTypes = UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert;
-    [self registerForRemoteNotificationTypes:notificationTypes];
-    #endif
-    
-#endif
+    if (BSDevice().systemVersion.doubleValue > 8.0) {
+        UIUserNotificationType types = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
+        NSSet<UIUserNotificationCategory *> *categories = nil;
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:types categories:categories];
+        [self registerUserNotificationSettings:settings];
+        [self registerForRemoteNotifications];
+    } else {
+        UIRemoteNotificationType notificationTypes = UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert;
+        [self registerForRemoteNotificationTypes:notificationTypes];
+    }
 }
 
 - (void)bs_scheduleLocalNotificationWithFireDate:(NSDate *)fireDate message:(NSString *)message {

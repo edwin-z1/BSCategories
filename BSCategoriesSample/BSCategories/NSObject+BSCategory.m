@@ -7,7 +7,6 @@
 //
 
 #import "NSObject+BSCategory.h"
-#import "NSError+BSCategory.h"
 
 #import <objc/runtime.h>
 
@@ -36,14 +35,8 @@
 }
 
 - (nullable NSArray<NSString *> *)bs_propertyListKeys {
-    unsigned int count;
+    unsigned int count = 0;
     objc_property_t *propertyList = class_copyPropertyList(self.class, &count);
-    
-    if (count == 0) {
-        NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey : @"the class have no property"}];
-        [error bs_printErrorDescriptionWithSelector:_cmd];
-        return nil;
-    }
     
     NSMutableArray *keys = @[].mutableCopy;
     for (NSInteger i = 0; i < count; i++) {
@@ -151,7 +144,7 @@
 typedef void(^BSKVOBlock)(id oldValue, id newValue);
 
 - (void)bs_addObserverBlockForKeyPath:(NSString *)keyPath block:(BSKVOBlock)block; {
-    NSMutableDictionary *dictionary = [self bs_KVOKeyPathAndBlockDictionary];
+    NSMutableDictionary *dictionary = [self bs_KVOKeyPathToBlockDictionary];
     BSKVOBlock blockForKeyPath = dictionary[keyPath];
     
     NSString *desc = [NSString stringWithFormat:@"the key path %@ has been observed", keyPath];
@@ -162,7 +155,7 @@ typedef void(^BSKVOBlock)(id oldValue, id newValue);
 }
 
 - (void)bs_removeObserverBlockForKeyPath:(NSString *)keyPath {
-    NSMutableDictionary *dictionary = [self bs_KVOKeyPathAndBlockDictionary];
+    NSMutableDictionary *dictionary = [self bs_KVOKeyPathToBlockDictionary];
     BSKVOBlock blockForKeyPath = dictionary[keyPath];
     
     NSString *desc = [NSString stringWithFormat:@"the key path %@ has not been observed", keyPath];
@@ -173,7 +166,7 @@ typedef void(^BSKVOBlock)(id oldValue, id newValue);
 }
 
 - (void)bs_setObserverBlockForKeyPath:(NSString *)keyPath block:(void (^)(id _Nonnull, id _Nonnull))block {
-    NSMutableDictionary *dictionary = [self bs_KVOKeyPathAndBlockDictionary];
+    NSMutableDictionary *dictionary = [self bs_KVOKeyPathToBlockDictionary];
     BSKVOBlock blockForKeyPath = dictionary[keyPath];
     
     dictionary[keyPath] = block;
@@ -182,8 +175,8 @@ typedef void(^BSKVOBlock)(id oldValue, id newValue);
     }
 }
 
-- (void)bs_removeAllObserverBlocks {
-    NSMutableDictionary *dictionary = [self bs_KVOKeyPathAndBlockDictionary];
+- (void)bs_removeAllObservers {
+    NSMutableDictionary *dictionary = [self bs_KVOKeyPathToBlockDictionary];
     [dictionary enumerateKeysAndObjectsUsingBlock: ^(NSString *keyPath, id block, BOOL *stop) {
         [self removeObserver:self forKeyPath:keyPath];
     }];
@@ -203,12 +196,12 @@ typedef void(^BSKVOBlock)(id oldValue, id newValue);
     
     id newVal = [change objectForKey:NSKeyValueChangeNewKey];
     
-    NSMutableDictionary *dictionary = [self bs_KVOKeyPathAndBlockDictionary];
+    NSMutableDictionary *dictionary = [self bs_KVOKeyPathToBlockDictionary];
     BSKVOBlock blockForKeyPath = dictionary[keyPath];
     blockForKeyPath(oldVal, newVal);
 }
 
-- (NSMutableDictionary *)bs_KVOKeyPathAndBlockDictionary {
+- (NSMutableDictionary *)bs_KVOKeyPathToBlockDictionary {
     NSMutableDictionary *dictionary = [self bs_getAssociatedValueForKey:_cmd];
     if (!dictionary) {
         dictionary = [NSMutableDictionary new];

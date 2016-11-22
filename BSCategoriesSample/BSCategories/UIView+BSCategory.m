@@ -13,7 +13,8 @@
 #pragma mark - instantiation
 
 + (instancetype)bs_instantiateFromNibFile {
-    return (UIView *)[[NSBundle mainBundle] loadNibNamed:NSStringFromClass(self) owner:nil options:nil][0];
+    UINib *nib = [UINib nibWithNibName:NSStringFromClass(self) bundle:[NSBundle mainBundle]];
+    return (UIView *)[nib instantiateWithOwner:self options:nil].firstObject;
 }
 
 #pragma mark - frame
@@ -110,6 +111,9 @@
 
 - (nullable UIViewController *)bs_viewController {
     for (UIView *view = self; 1 ; view = view.superview) {
+        if ([self checkIfViewIsNil:view selector:_cmd]) {
+            return nil;
+        }
         UIResponder *nextResponder = [view nextResponder];
         if ([nextResponder isKindOfClass:[UIViewController class]]) {
             return (UIViewController *)nextResponder;
@@ -120,12 +124,25 @@
 
 - (nullable UINavigationController *)bs_navigationController {
     for (UIView *view = self; 1 ; view = view.superview) {
+        if ([self checkIfViewIsNil:view selector:_cmd]) {
+            return nil;
+        }
         UIResponder *nextResponder = [view nextResponder];
         if ([nextResponder isKindOfClass:[UINavigationController class]]) {
             return (UINavigationController *)nextResponder;
         }
     }
     return nil;
+}
+
+- (BOOL)checkIfViewIsNil:(UIView *)view selector:(SEL)selector {
+    if (!view) {
+        NSException *exception = [NSException exceptionWithName:[NSString stringWithFormat:@"Error happen in '%@'", NSStringFromSelector(selector)] reason:@"Can't find superview, please check the view's hierarchy" userInfo: nil];
+        @throw exception;
+        return YES;
+    } else {
+        return NO;
+    }
 }
 
 #pragma mark - shadow
@@ -137,6 +154,37 @@
     self.layer.shadowOpacity = opacity;
     self.layer.shouldRasterize = YES;
     self.layer.rasterizationScale = [UIScreen mainScreen].scale;
+}
+
+- (void)bs_addDottedLineOnEdge:(BSViewEdge)edge {
+    
+    CGPoint startPoint = CGPointZero;
+    CGPoint endPoint = CGPointZero;
+    if (edge == BSViewEdgeTop) {
+        startPoint = CGPointMake(0, 0);
+        endPoint = CGPointMake(self.bs_width, 0);
+    } else if (edge == BSViewEdgeLeft) {
+        startPoint = CGPointMake(0, 0);
+        endPoint = CGPointMake(0, self.bs_height);
+    } else if (edge == BSViewEdgeRight) {
+        startPoint = CGPointMake(self.bs_width, 0);
+        endPoint = CGPointMake(self.bs_width, self.bs_height);
+    } else {
+        startPoint = CGPointMake(0, self.bs_height);
+        endPoint = CGPointMake(self.bs_width, self.bs_height);
+    }
+    
+    UIBezierPath *path = [UIBezierPath bezierPath];
+    [path moveToPoint:startPoint];
+    [path addLineToPoint:endPoint];
+    
+    CAShapeLayer *shapeLayer = [CAShapeLayer layer];
+    shapeLayer.path = path.CGPath;
+    shapeLayer.lineDashPattern = @[@2];
+    shapeLayer.lineWidth = 2;
+    shapeLayer.strokeColor = [UIColor lightGrayColor].CGColor;
+    shapeLayer.fillColor = [UIColor lightGrayColor].CGColor;
+    [self.layer addSublayer:shapeLayer];
 }
 
 @end

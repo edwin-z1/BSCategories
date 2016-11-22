@@ -11,6 +11,8 @@
 
 @interface ViewController ()
 
+- (IBAction)respondsToButton:(UIButton *)sender;
+
 @end
 
 @implementation ViewController
@@ -19,6 +21,20 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
+    UIView *aView = [UIView new];
+    NSLog(@"%@",aView.bs_viewController);
+    @try {
+        NSLog(@"%@",aView.bs_viewController);
+    } @catch (NSException *exception) {
+        NSLog(@"%@",exception);
+    } @finally {
+        
+    }
+}
+
+
+- (void)bs_routerWithEventName:(NSString *)eventName userInfo:(NSDictionary *)userInfo {
+    NSLog(@"%@",eventName);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -26,4 +42,8 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)respondsToButton:(UIButton *)sender {
+    
+    [sender bs_routerWithEventName:@"heihei" userInfo:nil];
+}
 @end

@@ -26,7 +26,6 @@
 #import "NSNumber+BSCategory.h"
 #import "NSObject+BSCategory.h"
 #import "NSString+BSCategory.h"
-#import "NSError+BSCategory.h"
 #import "NSFileManager+BSCategory.h"
 #import "NSBundle+BSCategory.h"
 

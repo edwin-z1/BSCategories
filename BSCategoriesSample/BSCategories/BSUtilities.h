@@ -12,7 +12,7 @@
 
 #pragma mark - share instance
 
-
+FOUNDATION_EXPORT NSBundle *BSBundle();
 FOUNDATION_EXPORT NSUserDefaults *BSUserDefaults();
 FOUNDATION_EXPORT NSNotificationCenter *BSNotificationCenter();
 FOUNDATION_EXPORT UIApplication *BSApplication();

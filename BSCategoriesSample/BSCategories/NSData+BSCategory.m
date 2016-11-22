@@ -7,7 +7,6 @@
 //
 
 #import "NSData+BSCategory.h"
-#import "NSError+BSCategory.h"
 
 #import <CommonCrypto/CommonDigest.h>
 #import <CommonCrypto/CommonCryptor.h>

@@ -11,7 +11,9 @@
 @implementation UIResponder (BSCategory)
 
 - (void)bs_routerWithEventName:(NSString *)eventName userInfo:(nullable NSDictionary *)userInfo {
+    
     [self.nextResponder bs_routerWithEventName:eventName userInfo:userInfo];
+    
 }
 
 @end

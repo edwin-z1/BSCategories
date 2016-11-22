@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - notifications
 
 /// For Apple APNS notification registeration.
-- (void)bs_registerForAPNSRemoteNotifications;
+- (void)bs_registerForRemoteNotifications;
 
 - (void)bs_scheduleLocalNotificationWithFireDate:(NSDate *)fireDate message:(NSString *)message;
 

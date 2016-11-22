@@ -7,7 +7,6 @@
 //
 
 #import "NSFileManager+BSCategory.h"
-#import "NSError+BSCategory.h"
 
 @implementation NSFileManager (BSCategory)
 
@@ -46,7 +45,8 @@
     
     NSDirectoryEnumerator *enumerator = [self enumeratorAtURL:url includingPropertiesForKeys:@[NSURLIsDirectoryKey] options:NSDirectoryEnumerationSkipsHiddenFiles errorHandler:^BOOL(NSURL *url, NSError *error) {
         if (error) {
-            NSLog(@"[Error] %@ (%@)", error, url);
+            NSException *exception = [NSException exceptionWithName:[NSString stringWithFormat:@"Error happen in '%@'", NSStringFromSelector(_cmd)] reason:error.localizedDescription userInfo: nil];
+            @throw exception;
             return NO;
         }
         return YES;
@@ -56,9 +56,13 @@
     for (NSURL *fileURL in enumerator) {
         
         NSNumber *isDirectory;
-        NSError *error;
+        NSError *error = nil;
         [fileURL getResourceValue:&isDirectory forKey:NSURLIsDirectoryKey error:&error];
-        [error bs_printErrorDescriptionWithSelector:_cmd];
+        if (!error) {
+            NSException *exception = [NSException exceptionWithName:[NSString stringWithFormat:@"Error happen in '%@'", NSStringFromSelector(_cmd)] reason:error.localizedDescription userInfo: nil];
+            @throw exception;
+            return nil;
+        }
         
         // Skip directories
         if ([isDirectory boolValue]) {
@@ -75,20 +79,22 @@
 
 - (long long)bs_fileSizeWithPath:(NSString *)path {
     NSError *error = nil;
-    if([self fileExistsAtPath:path]){
-        // File exist
-        NSDictionary *attributes = [self attributesOfItemAtPath:path error:&error];
-        if ([error bs_printErrorDescriptionWithSelector:_cmd]) {
-            // Get file attribute failed
-            return -1;
-        }
-        return [attributes[NSFileSize] longLongValue];
+    if(![self fileExistsAtPath:path]){
+        // File not exist
+        error = [NSError errorWithDomain:NSCocoaErrorDomain code:0 userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:@"File at path '%@' does not exist", path] }];
+        NSException *exception = [NSException exceptionWithName:[NSString stringWithFormat:@"Error happen in '%@'", NSStringFromSelector(_cmd)] reason:error.localizedDescription userInfo: nil];
+        @throw exception;
+        return -1;
     }
     
-    // File not exist
-    error = [NSError errorWithDomain:NSCocoaErrorDomain code:0 userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:@"File at path '%@' does not exist", path] }];
-    [error bs_printErrorDescriptionWithSelector:_cmd];
-    return -1;
+    // File exist
+    NSDictionary *attributes = [self attributesOfItemAtPath:path error:&error];
+    if (!error) {
+        NSException *exception = [NSException exceptionWithName:[NSString stringWithFormat:@"Error happen in '%@'", NSStringFromSelector(_cmd)] reason:error.localizedDescription userInfo: nil];
+        @throw exception;
+        return -1;
+    }
+    return [attributes[NSFileSize] longLongValue];
 }
 
 @end
