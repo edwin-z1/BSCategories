@@ -14,19 +14,18 @@
 #pragma mark - generating
 
 - (nullable NSString *)bs_JSONString {
-    if ([NSJSONSerialization isValidJSONObject:self]) {
-        NSError *error = nil;
-        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:self options:NSJSONWritingPrettyPrinted error:&error];
-        if (!error) {
-            NSException *exception = [NSException exceptionWithName:[NSString stringWithFormat:@"Error happen in '%@'", NSStringFromSelector(_cmd)] reason:error.localizedDescription userInfo: nil];
-            @throw exception;
-            return nil;
-        }
-        
-        NSString *json = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-        return json;
+    if (![NSJSONSerialization isValidJSONObject:self]) {
+        return nil;
     }
-    return nil;
+    NSError *error = nil;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:self options:NSJSONWritingPrettyPrinted error:&error];
+    if (error) {
+        NSException *exception = [NSException exceptionWithName:[NSString stringWithFormat:@"Error happen in '%@'", NSStringFromSelector(_cmd)] reason:error.localizedDescription userInfo: nil];
+        @throw exception;
+        return nil;
+    }
+    NSString *json = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    return json;
 }
 
 + (nullable instancetype)bs_dictionaryWithAuxiliaryExecutablePlist:(NSString *)plist {
@@ -34,7 +33,7 @@
     NSData *plistData = [NSData bs_dataNamed:plist];
     NSError *error = nil;
     NSDictionary *dictionary = (NSDictionary *)[NSPropertyListSerialization propertyListWithData:plistData options:NSPropertyListMutableContainersAndLeaves format:NULL error:&error];
-    if (!error) {
+    if (error) {
         NSException *exception = [NSException exceptionWithName:[NSString stringWithFormat:@"Error happen in '%@'", NSStringFromSelector(_cmd)] reason:error.localizedDescription userInfo: nil];
         @throw exception;
         return nil;

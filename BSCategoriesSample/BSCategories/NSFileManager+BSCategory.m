@@ -58,7 +58,7 @@
         NSNumber *isDirectory;
         NSError *error = nil;
         [fileURL getResourceValue:&isDirectory forKey:NSURLIsDirectoryKey error:&error];
-        if (!error) {
+        if (error) {
             NSException *exception = [NSException exceptionWithName:[NSString stringWithFormat:@"Error happen in '%@'", NSStringFromSelector(_cmd)] reason:error.localizedDescription userInfo: nil];
             @throw exception;
             return nil;
@@ -89,7 +89,7 @@
     
     // File exist
     NSDictionary *attributes = [self attributesOfItemAtPath:path error:&error];
-    if (!error) {
+    if (error) {
         NSException *exception = [NSException exceptionWithName:[NSString stringWithFormat:@"Error happen in '%@'", NSStringFromSelector(_cmd)] reason:error.localizedDescription userInfo: nil];
         @throw exception;
         return -1;

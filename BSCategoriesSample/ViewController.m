@@ -22,7 +22,6 @@
     // Do any additional setup after loading the view, typically from a nib.
     
     UIView *aView = [UIView new];
-    NSLog(@"%@",aView.bs_viewController);
     @try {
         NSLog(@"%@",aView.bs_viewController);
     } @catch (NSException *exception) {

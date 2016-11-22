@@ -60,7 +60,7 @@
 - (BOOL)bs_isMatchesPattern:(NSString *)pattern options:(NSRegularExpressionOptions)options {
     NSError *error = nil;
     NSRegularExpression *regularExpression = [NSRegularExpression regularExpressionWithPattern:pattern options:options error:&error];
-    if (!error) {
+    if (error) {
         NSException *exception = [NSException exceptionWithName:[NSString stringWithFormat:@"Error happen in '%@'", NSStringFromSelector(_cmd)] reason:error.localizedDescription userInfo: nil];
         @throw exception;
         return NO;
@@ -107,7 +107,7 @@
 - (void)bs_enumerateRegexMatchesWithPattern:(NSString *)pattern options:(NSRegularExpressionOptions)options usingBlock:(void (^)(NSRange range, NSMatchingFlags flags, BOOL *stop))block {
     NSError *error = nil;
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:options error:&error];
-    if (!error) {
+    if (error) {
         NSException *exception = [NSException exceptionWithName:[NSString stringWithFormat:@"Error happen in '%@'", NSStringFromSelector(_cmd)] reason:error.localizedDescription userInfo: nil];
         @throw exception;
     }
@@ -119,7 +119,7 @@
 - (nullable instancetype)bs_stringByReplacingRegexMatchesWithPattern:(NSString *)pattern options:(NSRegularExpressionOptions)options withTemplate:(NSString *)templ {
     NSError *error = nil;
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:options error:&error];
-    if (!error) {
+    if (error) {
         NSException *exception = [NSException exceptionWithName:[NSString stringWithFormat:@"Error happen in '%@'", NSStringFromSelector(_cmd)] reason:error.localizedDescription userInfo: nil];
         @throw exception;
         return nil;
@@ -143,7 +143,7 @@
     NSData *data = [self dataUsingEncoding:NSUTF8StringEncoding];
     NSError *error = nil;
     id object = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&error];
-    if (!error) {
+    if (error) {
         NSException *exception = [NSException exceptionWithName:[NSString stringWithFormat:@"Error happen in '%@'", NSStringFromSelector(_cmd)] reason:error.localizedDescription userInfo: nil];
         @throw exception;
         return nil;
