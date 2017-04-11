@@ -63,7 +63,11 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - shadow
 
 - (void)bs_setLayerShadowColor:(UIColor *)color offset:(CGSize)offset radius:(CGFloat)radius opacity:(CGFloat)opacity;
-- (void)bs_addDottedLineOnEdge:(BSViewEdge)edge;
+
+#pragma mark - line layer
+- (void)bs_addLineOnEdge:(BSViewEdge)edge isDotted:(BOOL)isDotted;
+- (void)bs_addLineOnEdge:(BSViewEdge)edge lineWidth:(CGFloat)lineWidth insets:(UIEdgeInsets)insets isDotted:(BOOL)isDotted;
+
 
 NS_ASSUME_NONNULL_END
 

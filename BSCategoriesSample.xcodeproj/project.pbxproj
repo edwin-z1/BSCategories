@@ -35,6 +35,7 @@
 		846BA1B71D52E4EC00ED789D /* UITextField+BSCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 846BA1AB1D52E4EC00ED789D /* UITextField+BSCategory.m */; };
 		846BA1B81D52E4EC00ED789D /* UIView+BSCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 846BA1AD1D52E4EC00ED789D /* UIView+BSCategory.m */; };
 		846BA1B91D52E4EC00ED789D /* UIViewController+BSCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 846BA1AF1D52E4EC00ED789D /* UIViewController+BSCategory.m */; };
+		847058831E55AD3B002A02B5 /* 1.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 847058821E55AD3B002A02B5 /* 1.jpeg */; };
 		847D47B31D66F5F0007B669B /* SomeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 847D47B21D66F5F0007B669B /* SomeView.m */; };
 /* End PBXBuildFile section */
 
@@ -94,6 +95,7 @@
 		846BA1AD1D52E4EC00ED789D /* UIView+BSCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+BSCategory.m"; sourceTree = "<group>"; };
 		846BA1AE1D52E4EC00ED789D /* UIViewController+BSCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+BSCategory.h"; sourceTree = "<group>"; };
 		846BA1AF1D52E4EC00ED789D /* UIViewController+BSCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+BSCategory.m"; sourceTree = "<group>"; };
+		847058821E55AD3B002A02B5 /* 1.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.jpeg; sourceTree = "<group>"; };
 		847D47B11D66F5F0007B669B /* SomeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SomeView.h; sourceTree = "<group>"; };
 		847D47B21D66F5F0007B669B /* SomeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SomeView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -132,6 +134,7 @@
 				846BA1161D52DBE900ED789D /* AppDelegate.m */,
 				846BA1181D52DBE900ED789D /* ViewController.h */,
 				846BA1191D52DBE900ED789D /* ViewController.m */,
+				847058821E55AD3B002A02B5 /* 1.jpeg */,
 				847D47B11D66F5F0007B669B /* SomeView.h */,
 				847D47B21D66F5F0007B669B /* SomeView.m */,
 				846BA1291D52DC0300ED789D /* BSCategories */,
@@ -293,6 +296,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				847058831E55AD3B002A02B5 /* 1.jpeg in Resources */,
 				846BA1221D52DBE900ED789D /* LaunchScreen.storyboard in Resources */,
 				846BA11F1D52DBE900ED789D /* Assets.xcassets in Resources */,
 				846BA11D1D52DBE900ED789D /* Main.storyboard in Resources */,
@@ -443,6 +447,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/BSCategoriesSample/PrivateFrameworks",
+				);
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = BSCategoriesSample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -455,6 +464,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/BSCategoriesSample/PrivateFrameworks",
+				);
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = BSCategoriesSample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

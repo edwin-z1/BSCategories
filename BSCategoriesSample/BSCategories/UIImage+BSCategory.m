@@ -193,6 +193,7 @@ typedef NS_ENUM(NSUInteger, BSImageFlipDirection) {
 }
 
 + (instancetype)bs_imageGIFNamed:(NSString *)name {
+    
     return [self bs_imageWithGIFData:[NSData bs_dataNamed:name]];
 }
 

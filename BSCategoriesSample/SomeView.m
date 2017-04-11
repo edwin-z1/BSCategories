@@ -14,8 +14,6 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    
-    [self bs_addDottedLineOnEdge:(BSViewEdgeTop)];
 }
 
 - (void)bs_routerWithEventName:(NSString *)eventName userInfo:(NSDictionary *)userInfo {

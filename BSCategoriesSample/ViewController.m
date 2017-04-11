@@ -9,6 +9,9 @@
 #import "ViewController.h"
 #import "BSCategories/BSCategories.h"
 
+#import <dlfcn.h>
+
+
 @interface ViewController ()
 
 - (IBAction)respondsToButton:(UIButton *)sender;
@@ -20,15 +23,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    
-    UIView *aView = [UIView new];
-    @try {
-        NSLog(@"%@",aView.bs_viewController);
-    } @catch (NSException *exception) {
-        NSLog(@"%@",exception);
-    } @finally {
+
+    CGSize size = [@" " bs_sizeForConstrainedSize:CGSizeMake(100, 100) attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:11]}];
+    NSLog(@"%@", NSStringFromCGSize(size));
+    [self bs_setObserverForKeyPath:@"view" block:^(id  _Nonnull oldValue, id  _Nonnull newValue) {
         
-    }
+    }];
+    
+    
+//    UIView *aView = [UIView new];
+//    @try {
+//        NSLog(@"%@",aView.bs_viewController);
+//    } @catch (NSException *exception) {
+//        NSLog(@"%@",exception);
+//    } @finally {
+//        
+//    }
 }
 
 

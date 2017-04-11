@@ -7,6 +7,7 @@
 //
 
 #import "UIView+BSCategory.h"
+#import "NSObject+BSCategory.h"
 
 @implementation UIView (BSCategory)
 
@@ -156,22 +157,49 @@
     self.layer.rasterizationScale = [UIScreen mainScreen].scale;
 }
 
-- (void)bs_addDottedLineOnEdge:(BSViewEdge)edge {
+#pragma mark - line layer
+
+- (void)bs_addLineOnEdge:(BSViewEdge)edge isDotted:(BOOL)isDotted {
+    
+    [self bs_addLineOnEdge:edge lineWidth:1 insets:UIEdgeInsetsZero isDotted:isDotted];
+}
+
+- (void)bs_addLineOnEdge:(BSViewEdge)edge lineWidth:(CGFloat)lineWidth insets:(UIEdgeInsets)insets isDotted:(BOOL)isDotted {
     
     CGPoint startPoint = CGPointZero;
     CGPoint endPoint = CGPointZero;
+    
+    CGPoint leftTop = CGPointMake(0 + insets.left, insets.top);
+    CGPoint rightTop = CGPointMake(self.bs_width - self.bs_origin.x - insets.right, insets.top);
+    CGPoint leftBottom = CGPointMake(0 + insets.left, self.bs_height - self.bs_origin.y - insets.bottom);
+    CGPoint rightBottom = CGPointMake(self.bs_width - self.bs_origin.x - insets.right, self.bs_height - self.bs_origin.y - insets.bottom);
+    
+    NSString *key = nil;
     if (edge == BSViewEdgeTop) {
-        startPoint = CGPointMake(0, 0);
-        endPoint = CGPointMake(self.bs_width, 0);
+        startPoint = leftTop;
+        endPoint = rightTop;
+        key = @"top";
+        
     } else if (edge == BSViewEdgeLeft) {
-        startPoint = CGPointMake(0, 0);
-        endPoint = CGPointMake(0, self.bs_height);
+        startPoint = leftTop;
+        endPoint = leftBottom;
+        key = @"left";
+        
     } else if (edge == BSViewEdgeRight) {
-        startPoint = CGPointMake(self.bs_width, 0);
-        endPoint = CGPointMake(self.bs_width, self.bs_height);
-    } else {
-        startPoint = CGPointMake(0, self.bs_height);
-        endPoint = CGPointMake(self.bs_width, self.bs_height);
+        startPoint = rightTop;
+        endPoint = rightBottom;
+        key = @"right";
+        
+    } else if (edge == BSViewEdgeBottom){
+        startPoint = leftBottom;
+        endPoint = rightBottom;
+        key = @"bottom";
+        
+    }
+    
+    CAShapeLayer *layer = [self edgeToLayerDictionary][key];
+    if (layer) {
+        [layer removeFromSuperlayer];
     }
     
     UIBezierPath *path = [UIBezierPath bezierPath];
@@ -180,11 +208,23 @@
     
     CAShapeLayer *shapeLayer = [CAShapeLayer layer];
     shapeLayer.path = path.CGPath;
-    shapeLayer.lineDashPattern = @[@2];
-    shapeLayer.lineWidth = 2;
+    shapeLayer.lineWidth = lineWidth;
     shapeLayer.strokeColor = [UIColor lightGrayColor].CGColor;
     shapeLayer.fillColor = [UIColor lightGrayColor].CGColor;
+    if (isDotted) {
+        shapeLayer.lineDashPattern = @[@2];
+    }
     [self.layer addSublayer:shapeLayer];
+    
+    [self edgeToLayerDictionary][key] = shapeLayer;
 }
 
+- (NSMutableDictionary *)edgeToLayerDictionary {
+    NSMutableDictionary *dictionary = [self bs_getAssociatedValueForKey:_cmd];
+    if (!dictionary) {
+        dictionary = [NSMutableDictionary new];
+        [self bs_setAssociateRetainValue:dictionary forKey:_cmd];
+    }
+    return dictionary;
+}
 @end

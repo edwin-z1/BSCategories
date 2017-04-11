@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-
 @interface NSObject (BSCategory)
 
 NS_ASSUME_NONNULL_BEGIN
@@ -56,14 +55,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - for KVO
 
-/// Add KVO block
-- (void)bs_addObserverBlockForKeyPath:(NSString *)keyPath block:(void (^)(id oldValue, id newValue))block;
+typedef void(^BSKVOBlock)(id oldValue, id newValue);
+
+/// If the keypath has been observed ,replace old block with new block. Else, add KVO block
+- (void)bs_setObserverForKeyPath:(NSString *)keyPath block:(BSKVOBlock)block;
 
 /// Remove KVO block for keyPath
-- (void)bs_removeObserverBlockForKeyPath:(NSString *)keyPath;
-
-/// If the keypath has been observed ,replace it with new block;
-- (void)bs_setObserverBlockForKeyPath:(NSString *)keyPath block:(void (^)(id oldValue, id newValue))block;
+- (void)bs_removeObserverForKeyPath:(NSString *)keyPath;
 
 /// Remove all KVOs
 - (void)bs_removeAllObservers;
